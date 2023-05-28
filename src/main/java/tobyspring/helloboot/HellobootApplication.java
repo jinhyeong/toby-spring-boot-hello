@@ -30,7 +30,7 @@ public class HellobootApplication {
 				super.onRefresh();
 				ServletWebServerFactory serverFactory = this.getBean(ServletWebServerFactory.class);
 				DispatcherServlet dispatcherServlet = this.getBean(DispatcherServlet.class);
-				dispatcherServlet.setApplicationContext(this);
+//				dispatcherServlet.setApplicationContext(this);
 
 				WebServer webServer = serverFactory.getWebServer(servletContext -> {
 					servletContext.addServlet("dispatcherServlet", dispatcherServlet)
