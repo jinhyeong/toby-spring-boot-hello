@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE, ElementType.METHOD })
-@Conditional(OnMyClassCondition.class)
+@Conditional(MyOnClassCondition.class)
 public @interface ConditionalMyOnClass {
 	String value();
 }
