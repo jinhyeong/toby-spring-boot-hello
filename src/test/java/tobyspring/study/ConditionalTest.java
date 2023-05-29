@@ -11,18 +11,20 @@ public class ConditionalTest {
 	@Test
 	void conditional() {
 		// true
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-		context.register(Config1.class);
-		context.refresh();
-
-		MyBean bean = context.getBean(MyBean.class);
+		ApplicationContextRunner contextRunner = new ApplicationContextRunner();
+		contextRunner.withUserConfiguration(Config1.class)
+				.run(context -> {
+					assertThat(context).hasSingleBean(MyBean.class);
+					assertThat(context).hasSingleBean(Config1.class);
+				});
 
 		// false
-		AnnotationConfigApplicationContext context2 = new AnnotationConfigApplicationContext();
-		context2.register(Config2.class);
-		context2.refresh();
-
-		MyBean bean2 = context2.getBean(MyBean.class);
+		ApplicationContextRunner contextRunner2 = new ApplicationContextRunner();
+		contextRunner2.withUserConfiguration(Config2.class)
+				.run(context -> {
+					assertThat(context).doesNotHaveBean(MyBean.class);
+					assertThat(context).doesNotHaveBean(Config1.class);
+				});
 	}
 
 	@Configuration
