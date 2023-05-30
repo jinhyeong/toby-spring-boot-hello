@@ -16,7 +16,7 @@ class HelloApiTest {
 		TestRestTemplate rest = new TestRestTemplate();
 
 		// when
-		ResponseEntity<String> res = rest.getForEntity("http://localhost:8080/app/hello?name={name}",
+		ResponseEntity<String> res = rest.getForEntity("http://localhost:9090/app/hello?name={name}",
 				String.class,
 				"Spring");
 
@@ -33,7 +33,7 @@ class HelloApiTest {
 		TestRestTemplate rest = new TestRestTemplate();
 
 		// when
-		ResponseEntity<String> res = rest.getForEntity("http://localhost:8080/app/hello?name=",
+		ResponseEntity<String> res = rest.getForEntity("http://localhost:9090/app/hello?name=",
 				String.class
 				);
 

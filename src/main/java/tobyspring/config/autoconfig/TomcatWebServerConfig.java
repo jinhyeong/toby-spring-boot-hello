@@ -1,11 +1,9 @@
 package tobyspring.config.autoconfig;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.env.Environment;
 import tobyspring.config.ConditionalMyOnClass;
 import tobyspring.config.MyAutoConfiguration;
 
@@ -20,13 +18,5 @@ public class TomcatWebServerConfig {
 		factory.setContextPath(serverProperties.getContextPath());
 		factory.setPort(serverProperties.getPort());
 		return factory;
-	}
-
-	@Bean
-	public ServerProperties ser법verProperties(Environment environment) {
-		ServerProperties serverProperties = new ServerProperties();
-		serverProperties.setContextPath(environment.getProperty("contextPath"));
-		serverProperties.setPort(Integer.parseInt(environment.getProperty("port")));
-		return serverProperties;
 	}
 }
