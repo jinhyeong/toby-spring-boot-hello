@@ -19,8 +19,8 @@ class JdbcTemplateTest {
 
 	@BeforeEach
 	void setUp() {
-//		jdbcTemplate.execute("create table if not exists hello(name varchar(50) primary key, count int)");
-		jdbcTemplate.execute("create table hello(name varchar(50) primary key, count int)");
+		jdbcTemplate.execute("create table if not exists hello(name varchar(50) primary key, count int)");
+//		jdbcTemplate.execute("create table hello(name varchar(50) primary key, count int)");
 		Long count = jdbcTemplate.queryForObject("select count(*) from hello", Long.class);
 		System.out.println("setUp count = " + count);
 	}
