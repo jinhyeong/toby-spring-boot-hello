@@ -12,14 +12,17 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @HellobootTest
-@Rollback(value = false)
+@Rollback(false)
 class JdbcTemplateTest {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
 	@BeforeEach
 	void setUp() {
-		jdbcTemplate.execute("create table if not exists hello(name varchar(50) primary key, count int)");
+//		jdbcTemplate.execute("create table if not exists hello(name varchar(50) primary key, count int)");
+		jdbcTemplate.execute("create table hello(name varchar(50) primary key, count int)");
+		Long count = jdbcTemplate.queryForObject("select count(*) from hello", Long.class);
+		System.out.println("setUp count = " + count);
 	}
 
 	@Test
@@ -27,7 +30,7 @@ class JdbcTemplateTest {
 		jdbcTemplate.update("insert into hello values (?,?)", "Toby", 3);
 		jdbcTemplate.update("insert into hello values (?,?)", "Spring", 1);
 
-		Long count = jdbcTemplate.queryForObject("select count(*) from hello", Long.class);
+		long count = jdbcTemplate.queryForObject("select count(*) from hello", Long.class);
 
 		List<Map<String, Object>> maps = jdbcTemplate.queryForList("select * from hello");
 		System.out.println("maps = " + maps);
@@ -37,10 +40,13 @@ class JdbcTemplateTest {
 
 	@Test
 	void insertAndQuery2() {
+		Long count = jdbcTemplate.queryForObject("select count(*) from hello", Long.class);
+		System.out.println("count = " + count);
+
 		jdbcTemplate.update("insert into hello values (?,?)", "Toby", 3);
 		jdbcTemplate.update("insert into hello values (?,?)", "Spring", 1);
 
-		Long count = jdbcTemplate.queryForObject("select count(*) from hello", Long.class);
+		count = jdbcTemplate.queryForObject("select count(*) from hello", Long.class);
 		List<Map<String, Object>> maps = jdbcTemplate.queryForList("select * from hello");
 		System.out.println("maps = " + maps);
 		assertThat(count).isEqualTo(2);
