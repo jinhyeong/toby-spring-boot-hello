@@ -11,19 +11,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.ANNOTATION_TYPE, ElementType.METHOD })
-@UnitTest
-@interface FastUnitTest{}
+@UnitTest @interface FastUnitTest {
+}
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.ANNOTATION_TYPE, ElementType.METHOD })
-@Test
-@interface UnitTest{}
+@Test @interface UnitTest {
+}
 
 class HelloServiceTest {
 	@FastUnitTest
 	void simpleHelloService() {
 		// given
-		SimpleHelloService helloService = new SimpleHelloService();
+		SimpleHelloService helloService = new SimpleHelloService(helloRepositoryStub);
 
 		// when
 		String result = helloService.sayHello("Test");
@@ -31,6 +31,18 @@ class HelloServiceTest {
 		// then
 		assertThat(result).isEqualTo("Hello Test");
 	}
+
+	private static HelloRepository helloRepositoryStub = new HelloRepository() {
+		@Override
+		public Hello findHello(String name) {
+			return null;
+		}
+
+		@Override
+		public void increaseCount(String name) {
+
+		}
+	};
 
 	@Test
 	void helloDecorator() {

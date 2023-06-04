@@ -5,37 +5,30 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @HellobootTest
-class HelloRepositoryJdbcTest {
+public class HelloServiceCountTest {
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
-
+	private HelloService helloService;
 	@Autowired
 	private HelloRepository helloRepository;
 
 
-	@Test
-	void findHelloFailed() {
-		// given
-		Hello hello = helloRepository.findHello("Toby");
-		assertThat(hello).isNull();
-		// when
-
-		// then
+	@BeforeEach
+	void setUp() {
 	}
 
 	@Test
-	void increaseCount() {
+	void sayHelloIncreaseCount() {
 		// given
-		assertThat(helloRepository.countOf("Toby")).isEqualTo(0);
-		helloRepository.increaseCount("Toby");
+		helloService.sayHello("Toby");
 		assertThat(helloRepository.countOf("Toby")).isEqualTo(1);
-		helloRepository.increaseCount("Toby");
+
+		helloService.sayHello("Toby");
 		assertThat(helloRepository.countOf("Toby")).isEqualTo(2);
 		// when
+
 
 		// then
 	}
